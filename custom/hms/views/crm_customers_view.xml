@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="crm_customers_view" model="ir.ui.view">
+            <field name="name">crm customers view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+<!--                <field name="phone" position="before">-->
+<!--                   -->
+<!--                </field>-->
+                <xpath expr="//notebook/page[@name='sales_purchases']" position="inside">
+                   <group>
+                        <field name="patient_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

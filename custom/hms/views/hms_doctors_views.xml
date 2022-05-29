@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--   for tree view     -->
+        <record id="hms_doctors_view_tree" model="ir.ui.view">
+            <field name="name">hms_doctors_view_tree</field>
+            <field name="model">hms.doctors</field>
+            <field name="arch" type="xml">
+                <tree string="hms_doctors_tree">
+                    <field name="first_name" required="True"/>
+                    <field name="Last_name" required="True"/>
+                    <!--<field name="image" widget="image"/>-->
+                    <field name="department_id"/>
+                    <field name="tags_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--   for from view     -->
+        <record id="hms_doctors_views_form" model="ir.ui.view">
+            <field name="name">hms_doctors_view_tree</field>
+            <field name="model">hms.doctors</field>
+            <field name="arch" type="xml">
+                <form string="_tree">
+                    <sheet>
+                        <group>
+                            <field name="first_name"/>
+                            <field name="Last_name"/>
+                            <!--                            <field name="image" widget="image"/>-->
+                        </group>
+                        <notebook>
+                            <page name="image" string="image">
+                                <group>
+                                    <field name="image" widget="image"/>
+                                </group>
+                            </page>
+                            <page string="department">
+                                <group>
+                                    <field name="department_id"/>
+                                    <field name="is_department_open"/>
+                                </group>
+                            </page>
+                            <page string="Tags">
+                                <group>
+                                    <!--   to show tag in nice way   -->
+                                    <field name="tags_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--   for action     -->
+        <record id="hms_doctors_action" model="ir.actions.act_window">
+            <field name="name">Doctors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hms.doctors</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hms_doctors_menu" name="Doctors" parent="hms_category_menu" action="hms_doctors_action"/>
+    </data>
+</odoo>

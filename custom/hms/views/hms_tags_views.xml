@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--   for tree view     -->
+        <record id="hms_tags_views_tree" model="ir.ui.view">
+            <field name="name">hms_tags_view_tree</field>
+            <field name="model">hms.tags</field>
+            <field name="arch" type="xml">
+                <tree string="_tree">
+                    <field name="tag"/>
+                    <field name="doctors_ids"/>
+                </tree>
+            </field>
+        </record>
+        <!--   for from view     -->
+        <record id="hms_tags_views_form" model="ir.ui.view">
+            <field name="name">hms_tags_view_tree</field>
+            <field name="model">hms.tags</field>
+            <field name="arch" type="xml">
+                <form string="_tree">
+                    <sheet>
+                        <group>
+                            <field name="tag"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Doctors">
+                                <group>
+                                    <field name="doctors_ids">
+                                        <tree editable="top">
+                                            <field name="first_name"/>
+                                            <field name="Last_name"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--   for action     -->
+        <record id="hms_tags_action" model="ir.actions.act_window">
+            <field name="name">tags</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hms.tags</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hms_tags_menu" name="Tags" parent="hms_category_menu" action="hms_tags_action"/>
+    </data>
+</odoo>

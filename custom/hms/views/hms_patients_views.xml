@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--   for tree view     -->
+        <record id="hms_patients_views_tree" model="ir.ui.view">
+            <field name="name">hms_patients_view_tree</field>
+            <field name="model">hms.patients</field>
+            <field name="arch" type="xml">
+                <tree string="_tree">
+                    <field name="first_name"/>
+                    <field name="Last_name"/>
+                    <field name="email"/>
+                    <field name="state"/>
+                    <field name="birth_date"/>
+                    <!--<field name="history"/>-->
+                    <field name="CR_ratio"/>
+                    <!--<field name="blood_type"/>-->
+                    <field name="PCR"/>
+                    <!--<field name="image" widget="image"/>-->
+                    <!--<field name="address"/>-->
+                    <field name="age"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+        <!--   for from view     -->
+        <record id="hms_patients_views_form" model="ir.ui.view">
+            <field name="name">hms_patients_view_tree</field>
+            <field name="model">hms.patients</field>
+            <field name="arch" type="xml">
+                <form string="_tree">
+                    <sheet>
+                        <header>
+                            <!--<button name="pass_undetermined" string="Show Undetermined"  states="Pass Undetermined" type="object"/>-->
+                            <button name="pass_undetermined" string="pass Undetermined" type="object"
+                                    attrs="{'invisible':[('state','!=','Undetermined')]}"/>
+                            <button name="pass_good" string="pass Good" type="object"
+                                    attrs="{'invisible':[('state','!=','Good')]}"/>
+                            <button name="pass_fair" string="pass Fair" type="object"
+                                    attrs="{'invisible':[('state','!=','Fair')]}"/>
+                            <button name="return_undetermined" string="Return undetermined" type="object"
+                                    attrs="{'invisible':[('state','!=','Serious')]}"/>
+                            <field name="state" widget="statusbar" statusbar_visible=""
+                                   statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+                        </header>
+                        <group>
+                            <field name="first_name" required="True"/>
+                            <field name="Last_name" required="True"/>
+                            <field name="email"/>
+                            <field name="birth_date"/>
+                            <field name="history" attrs="{
+                            'invisible':[('age','&lt;','50')]}"/>
+                            <field name="CR_ratio" attrs="{
+                            'required':[('PCR','=',True)]}"/>
+                            <!--    "{'required':['|',('PCR','=','True'),('PCR','=',True)]}"-->
+                            <!--    , => for and    -->
+                            <!--    '|' => for or   -->
+                            <field name="blood_type"/>
+                            <!--attrs="{'True':[('age','>','30')]}"-->
+                            <field name="PCR"
+                            />
+                            <!--<field name="image" widget="image"/>-->
+                            <field name="address"/>
+                            <field name="age" invisible="True"/>
+                        </group>
+                        <notebook>
+                            <page name="image" string="image">
+                                <group>
+                                    <field name="image" widget="image"/>
+                                </group>
+                            </page>
+                            <page string="department">
+                                <group>
+                                    <field name="department_id" domain="[('Is_opened','=',True)]"/>
+                                    <field name="is_department_open"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--   for action     -->
+        <record id="hms_patients_action" model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hms.patients</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="hms_root_menu" name="HMS"/>
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="hms_category_menu" name="HMS Data" parent="hms_root_menu"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hms_patients_menu" name="Patients" parent="hms_category_menu" action="hms_patients_action"/>
+    </data>
+</odoo>

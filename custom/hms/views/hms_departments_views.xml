@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--   for tree view     -->
+        <record id="hms_departments_views_tree" model="ir.ui.view">
+            <field name="name">hms_departments_view_tree</field>
+            <field name="model">hms.departments</field>
+            <field name="arch" type="xml">
+                <tree string="_tree">
+                    <field name="name"/>
+                    <field name="capacity"/>
+                    <field name="Is_opened"/>
+                    <field name="patient_ids"/>
+                    <field name="doctor_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--   for from view     -->
+        <record id="hms_departments_views_form" model="ir.ui.view">
+            <field name="name">hms_departments_view_form</field>
+            <field name="model">hms.departments</field>
+            <field name="arch" type="xml">
+                <form string="_form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="capacity"/>
+                            <field name="Is_opened"/>
+                        </group>
+                        <notebook>
+                            <page string="patients">
+                                <group>
+                                    <field name="patient_ids"/>
+                                </group>
+                            </page>
+                            <page string="Doctors">
+                                <group>
+                                    <field name="doctor_ids">
+                                        <!--    make shore there is no required in fields that isn't here, or it will not add in database    -->
+                                        <tree editable="top">
+                                            <field name="first_name"/>
+                                            <field name="Last_name"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--   for action     -->
+        <record id="hms_departments_action" model="ir.actions.act_window">
+            <field name="name">Departments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hms.departments</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hms_departments_menu" name="Departments" parent="hms_category_menu"
+                  action="hms_departments_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--   for tree view     -->
+        <record id="hms_log_history_views_tree" model="ir.ui.view">
+            <field name="name">hms_log_history_views_tree</field>
+            <field name="model">hms.log.history</field>
+            <field name="arch" type="xml">
+                <tree string="_tree">
+                    <field name="name"/>
+                    <field name="created_by"/>
+                    <field name="date"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+        <!--   for action     -->
+        <record id="hms_log_history_action" model="ir.actions.act_window">
+            <field name="name">Log History</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hms.log.history</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="hms_log_history_menu" name="Log History" parent="hms_category_menu" action="hms_log_history_action"/>
+    </data>
+</odoo>
